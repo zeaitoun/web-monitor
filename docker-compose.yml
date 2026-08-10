@@ -1,0 +1,19 @@
+services:
+  web:
+    build: .
+    image: zeaitoun/web-monitor:dev
+    container_name: web-monitor
+    ports:
+      - "8000:8000"
+    environment:
+      # Real configuration arrives in a later phase.
+      # See ROADMAP.md / TODO.md.
+      - PYTHONUNBUFFERED=1
+    volumes:
+      # Persistent data lives outside the container. Later this will
+      # include the SQLite database file and any backups.
+      - web-monitor-data:/data
+    restart: unless-stopped
+
+volumes:
+  web-monitor-data:
